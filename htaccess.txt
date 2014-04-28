@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{REQUEST_URI} !^.*?/apps/{{appname}}/public/
+RewriteRule ^(.*)$ ./apps/{{appname}}/public/$1 [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ ./apps/{{appname}}/public/index.php [L]
+
+</IfModule>

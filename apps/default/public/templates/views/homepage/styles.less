@@ -1,0 +1,254 @@
+/* Modular scale: http://modularscale.com/scale/?px1=16&px2=24&ra1=1.5&ra2=0 */
+
+@brand_color: #499;
+@brand_color_lighter: #cff;
+
+@rhythm: 24;
+@base: 16;
+
+/* apply a natural box layout model to all elements */
+*, *:before, *:after {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+body {
+    font-size: (1px * @base);
+    font-family: Tahoma, sans-serif;
+    line-height: (1em / @base * @rhythm);
+}
+
+a { color:@brand_color; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+pre, code { background: #eee; background: rgba(0,0,0, 0.125); border-radius: (1em / @base * 3); padding: 0 (1em / @base * 5);  }
+pre > code { background: transparent; display: block }
+
+pre { overflow: auto; }
+
+p { margin: (1em / @base * @rhythm) 0; }
+
+.upper-alpha { list-style: upper-alpha; }
+.lower-alpha { list-style: lower-alpha; }
+
+.article {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: (1em / @base * 480);
+}
+
+.note {
+    color: #999;
+    font-size: (1em / @base * 13);
+    font-style: italic;
+    line-height: (1em / 13 * @rhythm);
+}
+
+.inner-container {
+    margin: 0 auto;
+    max-width: (1em / @base * 768);
+}
+
+.page-header {
+    background:@brand_color;
+}
+.page-header,
+.page-content {
+    padding: (1em / @base * @rhythm * 4) (1em / @base * @rhythm);
+    position: relative;
+}
+
+.notice {
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 9;
+}
+
+.error-notice,
+.success-notice,
+.warning-notice,
+.site-footer {
+    font-size: (1em / @base * 12);
+    line-height: (1em / 12 * @rhythm);
+    padding: (1em / 12 * @rhythm) (1em / 12 * @rhythm);
+    text-align: center;
+}
+
+.site-footer {
+    background: #eee;
+}
+
+.error-notice,
+.warning-notice,
+.success-notice {
+    color: white;
+    position: relative;
+    z-index: 2;
+}
+
+.error-notice   { background: #900 }
+.warning-notice { background: #E80 }
+.success-notice { background: #066 }
+
+.unclick {
+    background: rgba(0,0,0,.5);
+    bottom :0;
+    cursor: not-allowed;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1;
+}
+
+.headline, .headline-tagline {
+    text-align: center;
+}
+
+.headline {
+    color:@brand_color;
+    font-family: 'Cutive Mono', monospace;
+    font-size: (1em / @base * 54);
+    font-weight: 500;
+    line-height: (1em / 54 * @rhythm*2);
+    margin: (1em / 54 * @rhythm * 2) 0;
+}
+h2.headline { font-size: (1em / @base * 36);                         line-height: (1em / @base * @rhythm * 2); }
+h3.headline { font-size: (1em / @base * 24);                         line-height: (1em / @base * @rhythm); }
+h4.headline { font-size: (1em / @base * 16);     font-weight: bold;  line-height: (1em / @base * @rhythm); }
+h5.headline { font-size: (1em / @base * 10.667); font-weight: bold;  line-height: (1em / @base * @rhythm); }
+h6.headline { font-size: (1em / @base * 10.667); font-style: italic; line-height: (1em / @base * @rhythm); }
+
+.headline-tagline {
+    color: #999;
+    font-style: italic;
+    font-weight: 500;
+}
+
+.page-header .headline { color: white; margin: 0; }
+.page-header .headline-tagline { color:@brand_color_lighter; margin: 0; }
+
+.install-overview {
+    list-style: circle;
+    margin: 0 auto;
+    max-width: (1em / @base * 320);
+}
+
+.install-overview li {
+    position: relative;
+}
+
+.install-overview .done,
+.install-overview .active {
+    color: white;
+    font-weight: bold;
+}
+.install-overview .active {
+    list-style: disc;
+}
+
+.install-overview .done {
+    list-style: none;
+}
+.install-overview .done::before {
+    content: "\2713";
+    position: absolute;
+    left: -1.25em;
+}
+
+.page-header .install-overview {
+    color:@brand_color_lighter;
+    bottom: (1em / @base * -2 * @rhythm);
+    position: relative;
+    top: (1em / @base * 2 *@rhythm);
+}
+
+.button {
+    -webkit-appearance: none;
+    background: white;
+    border: 1px solid@brand_color;
+    color:@brand_color;
+    display: inline-block;
+    padding: (1em / @base * @rhythm/2) (1em / @base * @rhythm * 2);
+    text-align: center;
+    text-decoration: none;
+}
+a.button {
+    text-decoration: none;
+}
+.button:hover {
+    background:@brand_color;
+    color: white;
+}
+.button-block {
+    display: block;
+    width: 100%;
+}
+.button-inline {
+    padding: (1em / @base * @rhythm/8) (1em / @base * @rhythm/2);
+}
+
+label,
+input[type="text"] {
+
+}
+
+label {
+    font-size: (1em / @base * 12);
+    font-weight: bold;
+    line-heihgt: (1em / 12 * @rhythm);
+    padding: (1em / 12 * @rhythm/2) (1em / 12 * @rhythm/2) 0 (1em / 12 * @rhythm/2)
+}
+
+input[type="text"] {
+    background: white;
+    border: 1px solid #ccc;
+    color: #666;
+    padding: (1em / @base * @rhythm*1.5) (1em / @base * @rhythm/2) (1em / @base * @rhythm/2);
+}
+input[type="text"]:focus {
+    border-color: #666;
+    color: #333;
+    outline: none;
+}
+
+form {
+}
+
+.form-field, .form-actions {
+    margin: 0;
+}
+
+.form-field {
+    background: #eee;
+    padding: (1em / @base * @rhythm) (1em / @base * @rhythm);
+    position: relative;
+}
+
+.form-field label {
+    color: #999;
+    display: block;
+    position: absolute;
+}
+
+.form-field input {
+    width: 100%;
+}
+
+.form-field-help,
+.help {
+    color: #999;
+    font-size: (1em / @base * 12);
+    line-heihgt: (1em / 12 * @rhythm);
+    padding: (1em / 12 * @rhythm/2) (1em / 12 * @rhythm/2);
+}
+
+@media(min-width: (1em / @base * 480)) {
+    .form-field input {
+        padding-left: (1em / @base * (@rhythm/2 + 160));
+        padding-top: (1em / @base * @rhythm/2);
+    }
+}

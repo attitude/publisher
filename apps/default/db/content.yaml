@@ -1,0 +1,115 @@
+---
+################################################################################
+#
+# COLLECTIONS
+#
+################################################################################
+_id: homepage
+_type: collection
+route: /
+subtitle:
+    sk_SK: Opäť ďalšia stránka
+    en_EN: Yet another website
+title: Publisher
+subTitle:
+    sk_SK: Squarespace-om inšpirovaný webový endžin
+    en_EN: Squarespace inspired website engine
+appTitle:
+    sk_SK: Defaultná appka
+    en_EN: Default App
+description:
+    sk_SK: Generátor stránok inšpirovaný Squarespac-om s viacjazyčnou podporou
+    en_EN: A multilanguage website generator inspired by Squarespace
+template: homepage
+hero:
+    headline:
+        sk_SK: Generátor stránok inšpirovaný Squarespac-om s viacjazyčnou podporou
+        en_EN: A multilanguage website generator inspired by Squarespace
+multilang:
+    title:
+        sk_SK: Bežíte s podporou viacjazyčnosti
+        en_EN: Running a multilanguage engine
+    about:
+        sk_SK: |
+            Môžete prekladať obsah a aj šablóny.
+
+            <h4>Zápis na preklad obsahu v <code>apps/yourapp/content.yaml</code> databáze:</h4>
+
+            ```yaml
+            ---
+            # begin document
+            _id: uniqueID
+            _type: post
+            title:
+                sk_SK: Nadpis článku
+                en_EN: Post title
+            #end document
+            ...
+            ```
+
+            <h4>Zápis prekladu v <code>apps/yourapp/translations.yaml</code> databáze:</h4>
+
+            ```yaml
+            'email hidden; JavaScript is required':
+                sk_SK: 'Email je chránený. Zapnite si prosím javaScript.'
+                en_EN: 'Email is protected. Turn on javaScript please.'
+            ```
+
+            Môžete dokonca prepisovať pôvodné anglické preklady aj bez zmeny šablóny.
+
+        en_EN: |
+            It is possible to translate content data an templates too.
+
+            <h4>Markup for translation content in <code>apps/yourapp/content.yaml</code> database:</h4>
+
+            ```yaml
+            ---
+            # begin document
+            _id: uniqueID
+            _type: post
+            title:
+                sk_SK: Nadpis článku
+                en_EN: Post title
+            #end document
+            ...
+            ```
+
+            <h4>Markup for translation of templates in <code>apps/yourapp/translations.yaml</code> database:</h4>
+
+            ```yaml
+            'email hidden; JavaScript is required':
+                sk_SK: 'Email je chránený. Zapnite si prosím javaScript.'
+                en_EN: 'Email is protected. Turn on javaScript please.'
+            ```
+
+            You can even rephrase English translations without changing actual template.
+    tests: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1.25]
+languages:
+    query(): {_type: language, published: true }
+copyrightYear:
+    copyrightYear():
+        since: 2014
+...
+---
+################################################################################
+#
+# LANGUAGES
+#
+################################################################################
+
+_id: sk_SK
+_type: language
+_collection: languages
+name: Slovenčina
+code: sk
+published: true
+default: true
+...
+---
+_id: en_EN
+_type: language
+_collection: languages
+name: English
+code: en
+published: true
+...

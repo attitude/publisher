@@ -1,0 +1,62 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{{website.appTitle}} | {{website.title}}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href='http://fonts.googleapis.com/css?family=Cutive+Mono' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="page">
+            <div class="page-header">
+                <div class="inner-container">
+                    <h1 class="headline">{{website.title}}</h1>
+                    <p class="headline-tagline">{{website.subtitle}}</p>
+                    <ul class="install-overview">
+                        <li class="active done">{{'Install dependencies' | translate}}</li>
+                        <li class="active done">{{'Activate App' | translate}}</li>
+                        <li class="active done">{{'Done' | translate}}</li>
+                    </ul>
+                    <div class="notice">
+                        <div class="success-notice">{{website.appTitle}} &mdash; {{ website.hasLanguages ? 'One language installed' : '{} languages installed' | translate}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-content">
+                <div class="inner-container">
+                    <h2 class="headline">{{item.multilang.title}}</h2>
+                    <div class="article">
+                        <h3 class="headline">{{'Choose language:' | translate}}</h3>
+                        <ul>
+                            {{#website.languages}}
+                            <li><a href="/{{code}}/">{{name}}</a></li>
+                            {{/website.languages}}
+                        </ul>
+                        {{{item.multilang.about | markdown}}}
+                        <h3 class="headline">{{'Pluralization Tests:' | translate}}</h3>
+                        <ul>
+                            {{#item.multilang.tests}}
+                            <li>{{ . ? '1 test' : '{} tests' | translate}}</li>
+                            {{/item.multilang.tests}}
+                        </ul>
+                        <h3 class="headline">{{'Display JSON' | translate}}</h3>
+                        <p>Want to see the data? Just add <code>?format=json</code> or <code>?format=jsonpretty</code> after any page.</p>
+                        <p><a class="button button-block" href="?format=json-pretty" target="_blank">Try this one &rarr;</a></p>
+                        <p class="help"><b>Tip:</b> Try Google Chrome extension <a href="https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa" target="_blank">JSON Formatter</a> to display JSON as collapsable groups.</p>
+                    </div>
+                    <h2 class="headline">{{'More info soon...' | translate}}</h2>
+                </div>
+            </div>
+            <div class="site-footer">
+                <div class="inner-container">
+                    Publisher &copy; 2014 {{#website.copyrightYear}} &mdash; {{website.copyrightYear}}{{/website.copyrightYear}} <a href="http://twitter.com/martin_adamko" target="_blank">Martin Adamko</a> Released under MIT Licence.
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

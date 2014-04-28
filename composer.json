@@ -1,0 +1,61 @@
+{
+    "name": "flexit/flexitweb",
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": {
+            "Publisher\\": "src/",
+            "attitude\\": "vendor/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/attitude/elements"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/attitude/elements-singleton"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/attitude/elements-request"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/attitude/elements-boot"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/attitude/flat-yaml-db"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/attitude/mustache-data-preprocessor"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/attitude/mustache-atomic-loader"
+        },
+        {
+            "type": "vcs",
+            "url": "https://gist.github.com/9768220.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://gist.github.com/9842170.git"
+        }
+    ],
+    "require": {
+        "attitude/Elements":                  "~0.2.0",
+        "attitude/Elements/Boot":             "~0.2.0",
+        "attitude/Elements/Singleton":        "~0.2.0",
+        "attitude/Elements/Request":          "~0.1.0",
+        "attitude/FlatYAMLDB":                "~0.3.7",
+        "attitude/Mustache/DataPreprocessor": "~0.2.14",
+        "attitude/Mustache/AtomicLoader":     "~0.5.1",
+        "attitude/Functions/is_assoc_array":  "dev-master",
+        "attitude/Functions/generate_slug":   "dev-master",
+        "mustache/mustache":                  "dev-master",
+        "erusev/parsedown":                   "dev-master"
+    }
+}
