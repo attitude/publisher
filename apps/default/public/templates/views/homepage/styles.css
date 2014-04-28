@@ -1,0 +1,261 @@
+/* Modular scale: http://modularscale.com/scale/?px1=16&px2=24&ra1=1.5&ra2=0 */
+/* apply a natural box layout model to all elements */
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+body {
+  font-size: 16px;
+  font-family: Tahoma, sans-serif;
+  line-height: 1.5em;
+}
+a {
+  color: #449999;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+pre,
+code {
+  background: #eee;
+  background: rgba(0, 0, 0, 0.125);
+  border-radius: 0.1875em;
+  padding: 0 0.3125em;
+}
+pre > code {
+  background: transparent;
+  display: block;
+}
+pre {
+  overflow: auto;
+}
+p {
+  margin: 1.5em 0;
+}
+.upper-alpha {
+  list-style: upper-alpha;
+}
+.lower-alpha {
+  list-style: lower-alpha;
+}
+.article {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 30em;
+}
+.note {
+  color: #999;
+  font-size: 0.8125em;
+  font-style: italic;
+  line-height: 1.84615385em;
+}
+.inner-container {
+  margin: 0 auto;
+  max-width: 48em;
+}
+.page-header {
+  background: #449999;
+}
+.page-header,
+.page-content {
+  padding: 6em 1.5em;
+  position: relative;
+}
+.notice {
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 9;
+}
+.error-notice,
+.success-notice,
+.warning-notice,
+.site-footer {
+  font-size: 0.75em;
+  line-height: 2em;
+  padding: 2em 2em;
+  text-align: center;
+}
+.site-footer {
+  background: #eee;
+}
+.error-notice,
+.warning-notice,
+.success-notice {
+  color: white;
+  position: relative;
+  z-index: 2;
+}
+.error-notice {
+  background: #990000;
+}
+.warning-notice {
+  background: #ee8800;
+}
+.success-notice {
+  background: #006666;
+}
+.unclick {
+  background: rgba(0, 0, 0, 0.5);
+  bottom: 0;
+  cursor: not-allowed;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+.headline,
+.headline-tagline {
+  text-align: center;
+}
+.headline {
+  color: #449999;
+  font-family: 'Cutive Mono', monospace;
+  font-size: 3.375em;
+  font-weight: 500;
+  line-height: 0.88888889em;
+  margin: 0.88888889em 0;
+}
+h2.headline {
+  font-size: 2.25em;
+  line-height: 3em;
+}
+h3.headline {
+  font-size: 1.5em;
+  line-height: 1.5em;
+}
+h4.headline {
+  font-size: 1em;
+  font-weight: bold;
+  line-height: 1.5em;
+}
+h5.headline {
+  font-size: 0.6666875em;
+  font-weight: bold;
+  line-height: 1.5em;
+}
+h6.headline {
+  font-size: 0.6666875em;
+  font-style: italic;
+  line-height: 1.5em;
+}
+.headline-tagline {
+  color: #999;
+  font-style: italic;
+  font-weight: 500;
+}
+.page-header .headline {
+  color: white;
+  margin: 0;
+}
+.page-header .headline-tagline {
+  color: #ccffff;
+  margin: 0;
+}
+.install-overview {
+  list-style: circle;
+  margin: 0 auto;
+  max-width: 20em;
+}
+.install-overview li {
+  position: relative;
+}
+.install-overview .done,
+.install-overview .active {
+  color: white;
+  font-weight: bold;
+}
+.install-overview .active {
+  list-style: disc;
+}
+.install-overview .done {
+  list-style: none;
+}
+.install-overview .done::before {
+  content: "\2713";
+  position: absolute;
+  left: -1.25em;
+}
+.page-header .install-overview {
+  color: #ccffff;
+  bottom: -3em;
+  position: relative;
+  top: 3em;
+}
+.button {
+  -webkit-appearance: none;
+  background: white;
+  border: 1px solid #449999;
+  color: #449999;
+  display: inline-block;
+  padding: 0.75em 3em;
+  text-align: center;
+  text-decoration: none;
+}
+a.button {
+  text-decoration: none;
+}
+.button:hover {
+  background: #449999;
+  color: white;
+}
+.button-block {
+  display: block;
+  width: 100%;
+}
+.button-inline {
+  padding: 0.1875em 0.75em;
+}
+label {
+  font-size: 0.75em;
+  font-weight: bold;
+  line-heihgt: 2em;
+  padding: 1em 1em 0 1em;
+}
+input[type="text"] {
+  background: white;
+  border: 1px solid #ccc;
+  color: #666;
+  padding: 2.25em 0.75em 0.75em;
+}
+input[type="text"]:focus {
+  border-color: #666;
+  color: #333;
+  outline: none;
+}
+.form-field,
+.form-actions {
+  margin: 0;
+}
+.form-field {
+  background: #eee;
+  padding: 1.5em 1.5em;
+  position: relative;
+}
+.form-field label {
+  color: #999;
+  display: block;
+  position: absolute;
+}
+.form-field input {
+  width: 100%;
+}
+.form-field-help,
+.help {
+  color: #999;
+  font-size: 0.75em;
+  line-heihgt: 2em;
+  padding: 1em 1em;
+}
+@media (min-width: 30em) {
+  .form-field input {
+    padding-left: 10.75em;
+    padding-top: 0.75em;
+  }
+}

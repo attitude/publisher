@@ -1,0 +1,30 @@
+'email hidden; JavaScript is required':
+    sk_SK: 'Email je chránený. Zapnite si prosím javaScript.'
+    en_EN: 'Email is protected. Turn on javaScript please.'
+'Install dependencies':
+    sk_SK: 'Inštalácia závislostí'
+'Activate App':
+    sk_SK: 'Aktivotanie Appky'
+Done:
+    sk_SK: Hotovo
+'Pluralization Tests:':
+    sk_SK: 'Testy pluralizácie:'
+'{} languages installed':
+    sk_SK:
+        1: 'Jeden nazyk nainštalovaný'
+        2: '2 jazyky nainštalované'
+        3: '3 jazyky nainštalované'
+        4: '4 jazyky nainštalované'
+        other: '{} jazykov nainštalovaných'
+'{} tests':
+    sk_SK:
+        1: '1 test'
+        few: '{} testy'
+        other: '{} testov'
+        fraction: '{} testu'
+    en_EN:
+        fraction: "{} of a\_test"
+'Choose language:':
+    sk_SK: 'Vyberte jazyk'
+'Display JSON': {  }
+'More info soon...': {  }
