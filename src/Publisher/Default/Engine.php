@@ -120,8 +120,10 @@ class Default_Engine
 
     protected function boot()
     {
-        DependencyContainer::set('global::languageRegex', '/^(?:[a-z]{2}|[a-z]{2}_[A-Z]{2})$/');
+        // Boot sequence and checks
         DependencyContainer::set('global::boot', Boot_Element::instance());
+
+        // REQUEST_URI_ARRAY is created by Boot_Element, therefore must preceed
         DependencyContainer::set('global::request',  new Request_Element(
             $_SERVER['REQUEST_METHOD'],
             $_SERVER['REQUEST_URI_ARRAY'],
@@ -141,101 +143,13 @@ class Default_Engine
     protected function setDatabase()
     {
         $this->db = new ContentDB_Element(
-            APP_ROOT_DIR.'/db/content.yaml',
-            array(
-                '_id',
-                '_collection',
-                '_type',
-                'code',
-                'default',
-                'name',
-                'published',
-                'route',
-                'subtitle',
-                'tags',
-                'title',
-            ),
-            true
+            DependencyContainer::get('global::contentDBFile'),
+            DependencyContainer::get('global::contentDBIndexes'),
+            DependencyContainer::get('global::contentDBNocache')
         );
 
         // Set db
         DependencyContainer::set('global::db', $this->db);
-
-        // Set expanders
-        DependencyContainer::set('global::dataExpanders', array(
-            'link' => function($args) {
-                return DependencyContainer::get('global::db')->expanderLink($args);
-            },
-            'href' => function($args) {
-                return DependencyContainer::get('global::db')->expanderHref($args);
-            },
-            'title' => function($args) {
-                return DependencyContainer::get('global::db')->expanderTitle($args);
-            },
-            'query' => function($args) {
-                return DependencyContainer::get('global::db')->expanderQuery($args);
-            },
-            'content' => function($args) { echo 'RUN';
-                if (!isset($args[0])) {
-                    throw new HTTPException(500, 'content() expander expects sequential array: `content(): [content_id_1, content_id_2, ...]');
-                }
-
-                $results = array();
-
-                foreach ((array) $args as $_args) {
-                    $_args          = array('_id' => $_args);
-                    $_args['_type'] = 'content';
-                    try {
-                        $results[] = DependencyContainer::get('global::db')->expanderQuery($_args);
-                    } catch (HTTPException $e) {}
-                }
-
-                return $results;
-            },
-            'lastMonths' => function($args) {
-                $months = array();
-                $count  = isset($args['count']) ? (int) $args['count'] : 4;
-                $locale = DependencyContainer::get('global::language.locale');
-
-                // Set locale for time
-                setlocale(LC_TIME, $locale);
-
-                $time = time();
-
-                $this_month = (int) date('n', $time);
-                $this_year = (int) date('Y', $time);
-
-                $time = time(0, 0, 0, $this_month, 1, $this_year);
-
-                while (count($months) < $count) {
-                    $months[] = array(
-                        'fullName' => strftime('%B', $time),
-                        'shortName' => strftime('%b', $time),
-                        'order' => $this_month
-                    );
-
-                    $this_month--;
-                    if ($this_month===0) {
-                        $this_month = 12;
-                        $this_year--;
-                    }
-
-                    $time = mktime(0, 0, 0, $this_month, 1, $this_year);
-                }
-
-
-                return array_reverse($months);
-            },
-            'copyrightYear' => function ($args) {
-                $Y = date('Y');
-
-                if (isset($args['since']) && $Y > $args['since']) {
-                    return $Y;
-                }
-
-                return false;
-            }
-        ));
 
         return $this;
     }
@@ -318,6 +232,7 @@ class Default_Engine
                 :
                 $this->requestURI;
 
+            // Redirect
             header('Location: '. $location);
 
             exit;
@@ -329,36 +244,15 @@ class Default_Engine
     protected function setTranslationsService()
     {
         $this->translations_service = new TranslationsDB_Element(
-            APP_ROOT_DIR.'/db/translations.yaml',
-            array(),
-            true
+            DependencyContainer::get('global::translationsDBFile'),
+            DependencyContainer::get('global::translationsDBIndexes'),
+            DependencyContainer::get('global::translationsDBNocache')
         );
 
+        // Set service it to be available
         DependencyContainer::set('global.i18n.service', $this->translations_service);
-        DependencyContainer::set('money::currency_prefix', false);
-        DependencyContainer::set('money::dec_point', ',');
 
-        DependencyContainer::set('global::language.pluralRules.skSelect', function($n) {
-            // Change 1,25 to 1.25 which is understood correctly as float
-            if (is_string($n)) {
-                $n = str_replace(',','.',$n);
-            }
-
-            if (intval($n) != $n) {
-                return TranslationsDB_Element::FRACTION;
-            }
-
-            if ($n == 1) {
-                return TranslationsDB_Element::ONE;
-            }
-
-            if ($n == ($n | 0) && $n >= 2 && $n <= 4) {
-                return TranslationsDB_Element::FEW;
-            }
-
-            return TranslationsDB_Element::OTHER;
-        });
-
+        // Set the translation method
         DependencyContainer::set('i18l::translate', function($one, $other='', $count=0, $offset=0) {
             return DependencyContainer::get('global.i18n.service')->translate($one, $other, $count, $offset);
         });
@@ -368,38 +262,12 @@ class Default_Engine
 
     protected function setRenderingEngine()
     {
-        $loader_args = array(
-            'publicDir' => WWW_ROOT_DIR,
-            'publicURL' => '/',
-            'assets' => AtomicLoader_FilesystemLoader::getAssetDefaults()
-        );
-
-        $mustache_cache_dir_path = ROOT_DIR.'/cache/mustache';
+        $mustache_cache_dir_path = DependencyContainer::get('global::mustacheCachePath');
 
         // Create cache dir if it doeas not exist
         if (!file_exists($mustache_cache_dir_path)) {
             mkdir($mustache_cache_dir_path, 0755, true);
         }
-
-        DependencyContainer::set('global::mustacheCachePath',    $mustache_cache_dir_path);
-        DependencyContainer::set('global::mustacheViews',    new AtomicLoader_FilesystemLoader(WWW_ROOT_DIR.'/templates/views', $loader_args));
-        DependencyContainer::set('global::mustachePartials', new AtomicLoader_FilesystemLoader(WWW_ROOT_DIR.'/templates', $loader_args));
-
-        DependencyContainer::set('global::markdownParser', new \Parsedown());
-        DependencyContainer::set('global::mustacheHelpers', array(
-            'markdown' => function($str) {
-                return DependencyContainer::get('global::markdownParser')->parse($str);
-            },
-            'csslinebreaks' => function($str) {
-                $lines = explode('<br>', preg_replace('/<br.*?\/?>/', '<br>', $str));
-
-                foreach ($lines as $i => &$line) {
-                    $line = '<span class="csslinebreak csslinebreak--'.($i+1).'">'.$line.'</span>';
-                }
-
-                return implode('', $lines);
-            }
-        ));
 
         try {
             $this->html_engine = DataPreprocessor_Component::instance();

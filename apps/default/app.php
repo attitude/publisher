@@ -55,6 +55,9 @@ require_once ROOT_DIR.'/vendor/autoload.php';
 // Set to `true` to write time benchmark as comment after `</html>`
 define('MICROTIMEBENCHMARK', false);
 
+// Configure
+require_once APP_ROOT_DIR.'/config.php';
+
 // Serve request
 $publisher = new \Publisher\Default_Engine();
 $publisher->serve();
