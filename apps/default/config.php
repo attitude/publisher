@@ -151,7 +151,7 @@ DependencyContainer::set('global::language.pluralRules.csSelect', DependencyCont
 // Templating
 $loader_args = array(
     'publicDir' => WWW_ROOT_DIR,
-    'publicURL' => '/',
+    'publicURL' => 'http'. ($_SERVER['SCHEME']==='HTTPS' ? 's' : '').'://'.$_SERVER['HTTP_HOST'].'/',
     'assets' => AtomicLoader_FilesystemLoader::getAssetDefaults()
 );
 
@@ -176,3 +176,10 @@ DependencyContainer::set('global::mustacheHelpers', array(
         return implode('', $lines);
     }
 ));
+
+// Assets concatenation
+$concatenation_args = $loader_args;
+$concatenation_args['publicStaticDir'] = ASSETS_ROOT_DIR;
+$concatenation_args['publicStaticURL'] = ASSETS_URL;
+
+DependencyContainer::set('global::assetsConcantenator', new AtomicLoader_AssetsConcatenator(WWW_ROOT_DIR, $concatenation_args));

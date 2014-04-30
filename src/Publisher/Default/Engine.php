@@ -87,15 +87,7 @@ class Default_Engine
 
             $html = $this->html_engine->render($collection, $this->language['_id']);
 
-            $concatenation_args = array(
-                'publicDir' => WWW_ROOT_DIR,
-                'publicURL' => '/',
-                'publicStaticDir' => ASSETS_ROOT_DIR,
-                'publicStaticURL' => ASSETS_URL,
-                'assets' => AtomicLoader_FilesystemLoader::getAssetDefaults()
-            );
-
-            $concatenator = new AtomicLoader_AssetsConcatenator(WWW_ROOT_DIR, $concatenation_args);
+            $concatenator = DependencyContainer::get('global::assetsConcantenator');
             $concatenator->active = isset($_GET['combine-assets']) && $_GET['combine-assets']==='false' ? false : true;
 
             $html = $concatenator->defaultConcatenateAssets($html);
