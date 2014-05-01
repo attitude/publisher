@@ -19,7 +19,7 @@
 
 // Set as true to save/link to http://static.example.com
 // Note that different hosting directory structure might apply to your case.
-$as_static_subdomain = true;
+$as_static_subdomain = false;
 
 // On subdomain (sibling next to Publisher):
 if ($as_static_subdomain) {

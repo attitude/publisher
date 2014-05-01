@@ -78,40 +78,6 @@ DependencyContainer::set('global::dataExpanders', array(
 
         return $results;
     },
-    'lastMonths' => function($args) {
-        $months = array();
-        $count  = isset($args['count']) ? (int) $args['count'] : 4;
-        $locale = DependencyContainer::get('global::language.locale');
-
-        // Set locale for time
-        setlocale(LC_TIME, $locale);
-
-        $time = time();
-
-        $this_month = (int) date('n', $time);
-        $this_year = (int) date('Y', $time);
-
-        $time = time(0, 0, 0, $this_month, 1, $this_year);
-
-        while (count($months) < $count) {
-            $months[] = array(
-                'fullName' => strftime('%B', $time),
-                'shortName' => strftime('%b', $time),
-                'order' => $this_month
-            );
-
-            $this_month--;
-            if ($this_month===0) {
-                $this_month = 12;
-                $this_year--;
-            }
-
-            $time = mktime(0, 0, 0, $this_month, 1, $this_year);
-        }
-
-
-        return array_reverse($months);
-    },
     'copyrightYear' => function ($args) {
         $Y = date('Y');
 
