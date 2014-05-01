@@ -19,7 +19,7 @@
 
 // Set as true to save/link to http://static.example.com
 // Note that different hosting directory structure might apply to your case.
-$as_static_subdomain = true;
+$as_static_subdomain = false;
 
 // On subdomain (sibling next to Publisher):
 if ($as_static_subdomain) {
@@ -54,6 +54,9 @@ require_once ROOT_DIR.'/vendor/autoload.php';
 
 // Set to `true` to write time benchmark as comment after `</html>`
 define('MICROTIMEBENCHMARK', false);
+
+// Configure
+require_once APP_ROOT_DIR.'/config.php';
 
 // Serve request
 $publisher = new \Publisher\Default_Engine();

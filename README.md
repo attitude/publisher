@@ -44,6 +44,9 @@ $as_static_subdomain = true;
 What it does
 ---
 
+- Parses Macaw HTML export from enhanced markup
+  - [Tutorial](http://www.martinadamko.sk/?p=152) & [Example App](https://github.com/attitude/publisher-macaw-example)
+  - [Introduction](http://www.martinadamko.sk/?p=145)
 - Content translation
 - Template translation with pluralisation similar to i18n & l10n of AngularJS
 - Atomic Design principle of templates, CSS and javaScript as small componenets
@@ -57,6 +60,8 @@ What it does
 
 - [Mustache Data Preprocessor](https://github.com/attitude/mustache-data-preprocessor)
 - [Mustache Atomic Loader](https://github.com/attitude/mustache-atomic-loader)
+  - FilesystemLoader
+  - MacawLoader
 - [Flat YAML DB](https://github.com/attitude/flat-yaml-db)
 
 Under development
