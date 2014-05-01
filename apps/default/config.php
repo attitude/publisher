@@ -151,7 +151,7 @@ DependencyContainer::set('global::language.pluralRules.csSelect', DependencyCont
 // Templating
 $loader_args = array(
     'publicDir' => WWW_ROOT_DIR,
-    'publicURL' => 'http'. ($_SERVER['SCHEME']==='HTTPS' ? 's' : '').'://'.$_SERVER['HTTP_HOST'].'/',
+    'publicURL' => 'http'. (isset($_SERVER['SCHEME']) && $_SERVER['SCHEME']==='HTTPS' ? 's' : '').'://'.$_SERVER['HTTP_HOST'].'/',
     'assets' => AtomicLoader_FilesystemLoader::getAssetDefaults()
 );
 
