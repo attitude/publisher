@@ -122,7 +122,7 @@ $loader_args = array(
 );
 
 // Cache path
-DependencyContainer::set('global::mustacheCachePath',    ROOT_DIR.'/cache/mustache');
+DependencyContainer::set('global::mustacheCachePath', APP_ROOT_DIR.'/cache/mustache');
 DependencyContainer::set('global::mustacheViews',    new AtomicLoader_FilesystemLoader(WWW_ROOT_DIR.'/templates/views', $loader_args));
 DependencyContainer::set('global::mustachePartials', new AtomicLoader_FilesystemLoader(WWW_ROOT_DIR.'/templates', $loader_args));
 
