@@ -17,22 +17,56 @@
  *         └ index.php    # what is loaded when called www.example.com (installed)
  */
 
-// Set as true to save/link to http://static.example.com
-// Note that different hosting directory structure might apply to your case.
-$as_static_subdomain = false;
+/* Uncommenting sets string with the name of the static subdomain like 'static'
+ * to save/link to http: *static.example.com
+ *
+ * Different hosting directory structure might apply to your case...
+ *
+ * Info: I can assume only that when you run www.domain.com or domain.com
+ *       If you run this site from sub.domain.com, propably, you do not have
+ *       access to static.domain.com. If you do have, however, the static
+ *       subdomain setup is up to you. Delete this logic and replace it with
+ *       your own setup.
+ *
+ *       This code is just to give a quick start for defaults.
+ */
+// $as_static_subdomain = 'static'; // Uncomment to enable static.domain.com
 
 // On subdomain (sibling next to Publisher):
-if ($as_static_subdomain) {
+if (isset($as_static_subdomain) && $as_static_subdomain) {
     // Set absolut path to assets
     define('ASSETS_ROOT_DIR', dirname(ROOT_DIR).'/static');
 
     // Set URL for assets
     $nowww_domain = explode('.', $_SERVER['HTTP_HOST']);
-    $nowww_domain = $nowww_domain[(count($nowww_domain)-2)].'.'.$nowww_domain[(count($nowww_domain)-1)];
-    define('ASSETS_URL',
-        'http'. (isset($_SERVER['SCHEME']) && $_SERVER['SCHEME']==='HTTPS' ? 's' : '').
-        '://static.'.$nowww_domain.'/'
-    );
+
+    // Allow .dev suffix to support testing on local virtual host without
+    // breaking DNS to original domain:
+    if ($nowww_domain[(count($nowww_domain)-1)]==='dev') {
+        // Merge with the domain
+        array_pop($nowww_domain);
+        $nowww_domain[(count($nowww_domain)-1)].= '.dev';
+    }
+
+    // As static domai only for www.domain.com and domain.com
+    if (count($nowww_domain)===2 || count($nowww_domain)===3) {
+        // Trim first
+        $nowww_domain = $nowww_domain[(count($nowww_domain)-2)].'.'.$nowww_domain[(count($nowww_domain)-1)];
+
+        // For those times when not set correctly
+        if (!is_string($as_static_subdomain) || is_bool($as_static_subdomain) || trim($as_static_subdomain)==='') {
+            exit('You need to set the static domain as a&nbsp;string like <b>static</b> to build domain name like <b>static.'.$nowww_domain.'</b>.');
+        }
+
+        define('ASSETS_URL',
+            'http'. (isset($_SERVER['SCHEME']) && $_SERVER['SCHEME']==='HTTPS' ? 's' : '').
+            '://'.$as_static_subdomain.'.'.$nowww_domain.'/'
+        );
+    } else {
+        // Write note for developer to the log
+        trigger_error('The static domain setup is available only for level 2 doamins, e.g. domain.com and www.domain.com. Please setup manually.');
+        $nowww_domain = implode('.', $nowww_domain);
+    }
 } else {
     // Set absolut path to assets
     define('ASSETS_ROOT_DIR', WWW_ROOT_DIR.'/assets');
