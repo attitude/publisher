@@ -85,6 +85,9 @@ class Default_Engine
         try {
             $collection = DependencyContainer::get('global::db')->getCollection($this->requestURI);
 
+            // Push current language info to the data
+            $collection['website']['language'] = $this->language;
+
             $html = $this->html_engine->render($collection, $this->language['_id']);
 
             $concatenator = DependencyContainer::get('global::assetsConcantenator');
