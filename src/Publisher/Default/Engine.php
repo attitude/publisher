@@ -24,6 +24,12 @@ class Default_Engine
     protected $db;
 
     /**
+     * @var object $request Request
+     */
+    protected $request;
+
+
+    /**
      * @var string $requestURI Requested URI
      */
     protected $requestURI;
@@ -87,6 +93,7 @@ class Default_Engine
 
             // Push current language info to the data
             $collection['website']['language'] = $this->language;
+            $collection['website']['homeURL']  = $this->request->getHostLocation();
 
             $html = $this->html_engine->render($collection, $this->language['_id']);
 
@@ -119,13 +126,16 @@ class Default_Engine
         DependencyContainer::set('global::boot', Boot_Element::instance());
 
         // REQUEST_URI_ARRAY is created by Boot_Element, therefore must preceed
-        DependencyContainer::set('global::request',  new Request_Element(
+        $this->request = new Request_Element(
             $_SERVER['REQUEST_METHOD'],
             $_SERVER['REQUEST_URI_ARRAY'],
             (isset($_SERVER['argv']) ? $_SERVER['argv'] : array()),
             $_SERVER['HTTP_ACCEPT'],
             $GLOBALS['_'.$_SERVER['REQUEST_METHOD']]
-        ));
+        );
+
+        // Make it available
+        DependencyContainer::set('global::request', $this->request);
 
         // Explode the request URI for LANGUAGE
         $requestURI = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
