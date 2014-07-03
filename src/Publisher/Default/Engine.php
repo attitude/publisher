@@ -122,7 +122,7 @@ class Default_Engine
         DependencyContainer::set('global::request',  new Request_Element(
             $_SERVER['REQUEST_METHOD'],
             $_SERVER['REQUEST_URI_ARRAY'],
-            $_SERVER['argv'],
+            (isset($_SERVER['argv']) ? $_SERVER['argv'] : array()),
             $_SERVER['HTTP_ACCEPT'],
             $GLOBALS['_'.$_SERVER['REQUEST_METHOD']]
         ));
