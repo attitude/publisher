@@ -40,20 +40,22 @@
  * @return boolean
  *
  */
-function is_https() {
-    if (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTPPS'])=== 'on') {
-        return true;
+if (!function_exists('is_https')) {
+    function is_https() {
+        if (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTPPS'])=== 'on') {
+            return true;
+        }
+    
+        if (isset($_SERVER['SCHEME']) && strtolower($_SERVER['SCHEME'])==='https') {
+            return true;
+        }
+    
+        if (isset($_SERVER['REQUEST_SCHEME']) && strtolower($_SERVER['REQUEST_SCHEME'])==='https') {
+            return true;
+        }
+    
+        return false;
     }
-
-    if (isset($_SERVER['SCHEME']) && strtolower($_SERVER['SCHEME'])==='https') {
-        return true;
-    }
-
-    if (isset($_SERVER['REQUEST_SCHEME']) && strtolower($_SERVER['REQUEST_SCHEME'])==='https') {
-        return true;
-    }
-
-    return false;
 }
 
 // On subdomain (sibling next to Publisher):
