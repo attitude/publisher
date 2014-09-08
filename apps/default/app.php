@@ -32,6 +32,30 @@
  */
 // $as_static_subdomain = 'static'; // Uncomment to enable static.domain.com
 
+/**
+ * Check for HTTPS scheme
+ *
+ * Returns true if HTTPS is on
+ * @param void
+ * @return boolean
+ *
+ */
+function is_https() {
+    if (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTPPS'])=== 'on') {
+        return true;
+    }
+
+    if (isset($_SERVER['SCHEME']) && strtolower($_SERVER['SCHEME'])==='https') {
+        return true;
+    }
+
+    if (isset($_SERVER['REQUEST_SCHEME']) && strtolower($_SERVER['REQUEST_SCHEME'])==='https') {
+        return true;
+    }
+
+    return false;
+}
+
 // On subdomain (sibling next to Publisher):
 if (isset($as_static_subdomain) && $as_static_subdomain) {
     // Set absolut path to assets
@@ -58,10 +82,7 @@ if (isset($as_static_subdomain) && $as_static_subdomain) {
             exit('You need to set the static domain as a&nbsp;string like <b>static</b> to build domain name like <b>static.'.$nowww_domain.'</b>.');
         }
 
-        define('ASSETS_URL',
-            'http'. (isset($_SERVER['SCHEME']) && $_SERVER['SCHEME']==='HTTPS' ? 's' : '').
-            '://'.$as_static_subdomain.'.'.$nowww_domain.'/'
-        );
+        define('ASSETS_URL', 'http'. (is_https() ? 's' : '').'://'.$as_static_subdomain.'.'.$nowww_domain.'/');
     } else {
         // Write note for developer to the log
         trigger_error('The static domain setup is available only for level 2 doamins, e.g. domain.com and www.domain.com. Please setup manually.');
@@ -72,10 +93,7 @@ if (isset($as_static_subdomain) && $as_static_subdomain) {
     define('ASSETS_ROOT_DIR', WWW_ROOT_DIR.'/assets');
 
     // Set URL for assets
-    define('ASSETS_URL',
-        'http'. (isset($_SERVER['SCHEME']) && $_SERVER['SCHEME']==='HTTPS' ? 's' : '').
-        '://'.$_SERVER['HTTP_HOST'].'/assets'
-    );
+    define('ASSETS_URL', 'http'. (is_https() ? 's' : '').'://'.$_SERVER['HTTP_HOST'].'/assets');
 }
 
 // Make sure assets directory exists
