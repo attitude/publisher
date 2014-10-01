@@ -95,11 +95,17 @@ class Default_Engine
             $collection['website']['language'] = $this->language;
             $collection['website']['homeURL']  = $this->request->getHostLocation();
 
+            $contentFilterHook = DependencyContainer::get('global::contentFilterHook', null);
+
+            if (is_callable($contentFilterHook)) {
+                $collection = $contentFilterHook->__invoke($collection);
+            }
+
             $html = $this->html_engine->render($collection, $this->language['_id']);
 
             $concatenator = DependencyContainer::get('global::assetsConcantenator');
             $concatenator->active = isset($_GET['combine-assets']) && $_GET['combine-assets']==='false' ? false : true;
-            
+
             // If minification is specified, overrides any `combine-assets`
             if (isset($_GET['minify-assets'])) {
 				$concatenator->minify = $_GET['minify-assets']==='false' ? false : true;
