@@ -108,10 +108,10 @@ class Default_Engine
 
             // If minification is specified, overrides any `combine-assets`
             if (isset($_GET['minify-assets'])) {
-				$concatenator->minify = $_GET['minify-assets']==='false' ? false : true;
-			} elseif (isset($_GET['combine-assets'])) {
-				$concatenator->minify = $_GET['combine-assets']==='false' ? false : true;
-			}
+                $concatenator->minify = $_GET['minify-assets']==='false' ? false : true;
+            } elseif (isset($_GET['combine-assets'])) {
+                $concatenator->minify = $_GET['combine-assets']==='false' ? false : true;
+            }
 
             $html = $concatenator->defaultConcatenateAssets($html);
 
