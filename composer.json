@@ -50,7 +50,7 @@
         "attitude/Elements/Boot":             "~0.2.4",
         "attitude/Elements/Singleton":        "~0.2.0",
         "attitude/Elements/Request":          "~0.1.2",
-        "attitude/FlatYAMLDB":                "~0.3.10",
+        "attitude/FlatYAMLDB":                "~0.3.11",
         "attitude/Mustache/DataPreprocessor": "~0.2.17",
         "attitude/Mustache/AtomicLoader":     "~0.6.5",
         "attitude/Functions/is_assoc_array":  "dev-master",
