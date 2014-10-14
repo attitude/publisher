@@ -140,6 +140,9 @@ DependencyContainer::set('global::mustacheHelpers', array(
         }
 
         return implode('', $lines);
+    },
+    'headtitle' => function($arr) {
+        return implode(' / ', (array) $arr);
     }
 ));
 
