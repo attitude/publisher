@@ -92,8 +92,8 @@ class Default_Engine
             $collection = DependencyContainer::get('global::db')->getCollection($this->requestURI);
 
             // Push current language info to the data
-            $collection['website']['language'] = $this->language;
-            $collection['website']['homeURL']  = $this->request->getHostLocation();
+            $collection['meta']['language'] = $this->language;
+            $collection['meta']['homeURL']  = $this->request->getHostLocation();
 
             $contentFilterHook = DependencyContainer::get('global::contentFilterHook', null);
 
@@ -101,7 +101,7 @@ class Default_Engine
                 $collection = $contentFilterHook->__invoke($collection);
             }
 
-            $html = $this->html_engine->render($collection, $this->language['_id']);
+            $html = $this->html_engine->render($collection, $this->language['id']);
 
             $concatenator = DependencyContainer::get('global::assetsConcantenator');
             $concatenator->active = isset($_GET['combine-assets']) && $_GET['combine-assets']==='false' ? false : true;
@@ -176,7 +176,7 @@ class Default_Engine
     {
         // Get default language
         try {
-            $default_language = $this->db->query(array('_type' => 'language', 'default' => true));
+            $default_language = $this->db->query(array('type' => 'language', 'default' => true));
             $this->default_language = $default_language[0];
         } catch(HTTPException $e) {
             $e->header();
@@ -192,8 +192,8 @@ class Default_Engine
     {
         // Get all languages
         $all_languages_args = $this->is_user_logged_in() ?
-            array('_type'=>'language')
-          : array('_type'=>'language', 'published' => true);
+            array('type'=>'language')
+          : array('type'=>'language', 'published' => true);
 
         try {
             $this->languages = $this->db->query($all_languages_args);
@@ -212,14 +212,14 @@ class Default_Engine
     {
         // Requested Language
         $language_exists_args = $this->is_user_logged_in() ?
-            array('_type'=>'language', 'code' => $this->request_language, '_limit' => 1)
-          : array('_type'=>'language', 'code' => $this->request_language, '_limit' => 1, 'published' => true);
+            array('type'=>'language', 'code' => $this->request_language, '_limit' => 1)
+          : array('type'=>'language', 'code' => $this->request_language, '_limit' => 1, 'published' => true);
 
         try {
             $this->language = $this->db->query($language_exists_args, true);
 
             DependencyContainer::set('global::language', $this->language);
-            DependencyContainer::set('global::language.locale', $this->language['_id']);
+            DependencyContainer::set('global::language.locale', $this->language['id']);
         } catch(HTTPException $e) {
             $status = new HTTPException(301);
             $status->header();
@@ -336,7 +336,7 @@ class Default_Engine
 
                     foreach ((array) $this->languages as $language) {
                         if ($language['code'] === $prefered_language_code
-                         || $language['_id'][str_replace('-', '_', $prefered_language_code)] === $prefered_language
+                         || $language['id'][str_replace('-', '_', $prefered_language_code)] === $prefered_language
                         ) {
                             $prefered_language = $language;
 
