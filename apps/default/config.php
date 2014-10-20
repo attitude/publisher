@@ -143,6 +143,24 @@ DependencyContainer::set('global::mustacheHelpers', array(
     },
     'headtitle' => function($arr) {
         return implode(' / ', (array) $arr);
+    },
+    'iscurrentclass' => function($b) {
+        return !!($b) ? 'class="is-current"' : '';
+    },
+    'iscurrent' => function($b) {
+        return !!($b) ? 'is-current ' : '';
+    },
+    'ishomeclass' => function($b) {
+        return !!($b) ? 'class="is-home"' : '';
+    },
+    'ishome' => function($b) {
+        return !!($b) ? 'is-home ' : '';
+    },
+    'isactiveclass' => function($b) {
+        return !!($b) ? 'class="is-active"' : '';
+    },
+    'isactive' => function($b) {
+        return !!($b) ? 'is-active ' : '';
     }
 ));
 
