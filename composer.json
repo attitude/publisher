@@ -51,7 +51,7 @@
         "attitude/Elements/Singleton":        "~0.2.0",
         "attitude/Elements/Request":          "~0.1.2",
         "attitude/FlatYAMLDB":                "~0.4.0",
-        "attitude/Mustache/DataPreprocessor": "~0.2.17",
+        "attitude/Mustache/DataPreprocessor": "~0.3.0",
         "attitude/Mustache/AtomicLoader":     "~0.6.5",
         "attitude/Functions/is_assoc_array":  "dev-master",
         "attitude/Functions/generate_slug":   "dev-master",
