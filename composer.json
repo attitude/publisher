@@ -49,7 +49,7 @@
         "attitude/Elements":                  "~0.2.0",
         "attitude/Elements/Boot":             "~0.2.4",
         "attitude/Elements/Singleton":        "~0.2.0",
-        "attitude/Elements/Request":          "~0.1.2",
+        "attitude/Elements/Request":          "~0.1.3",
         "attitude/FlatYAMLDB":                "~0.4.0",
         "attitude/Mustache/DataPreprocessor": "~0.3.0",
         "attitude/Mustache/AtomicLoader":     "~0.6.5",
