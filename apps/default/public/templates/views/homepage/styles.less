@@ -93,6 +93,21 @@ p { margin: (1em / @base * @rhythm) 0; }
 .warning-notice { background: #E80 }
 .success-notice { background: #066 }
 
+.success-notice {
+    ul, li {
+        display: inline;
+        margin: 0;
+        padding: 0;
+    }
+
+    li{
+        &:before {
+            content: "•";
+            margin: 0 0.5em 0;
+        }
+    }
+}
+
 .unclick {
     background: rgba(0,0,0,.5);
     bottom :0;

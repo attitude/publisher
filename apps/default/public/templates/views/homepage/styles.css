@@ -100,6 +100,16 @@ p {
 .success-notice {
   background: #006666;
 }
+.success-notice ul,
+.success-notice li {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+.success-notice li:before {
+  content: "•";
+  margin: 0 0.5em 0;
+}
 .unclick {
   background: rgba(0, 0, 0, 0.5);
   bottom: 0;

@@ -21,9 +21,9 @@ DependencyContainer::set('global::contentDBFile', APP_ROOT_DIR.'/db/content.yaml
 DependencyContainer::set(
     'global::contentDBIndexes',
     array(
-        '_id',
-        '_collection',
-        '_type',
+        'id',
+        'collection',
+        'type',
         'code',
         'default',
         'name',
@@ -35,12 +35,12 @@ DependencyContainer::set(
     )
 );
 // To use cache set false, to refresh on each load set true (e.g. for debugging)
-DependencyContainer::set('global::contentDBNocache', false);
+DependencyContainer::set('global::contentDBNocache', true);
 
 // Translations database
 DependencyContainer::set('global::translationsDBFile', APP_ROOT_DIR.'/db/translations.yaml');
 DependencyContainer::set('global::translationsDBIndexes', array());
-DependencyContainer::set('global::translationsDBNocache', false);
+DependencyContainer::set('global::translationsDBNocache', true);
 
 // Money setup
 // @TODO: use current language to provide settings
@@ -117,7 +117,7 @@ DependencyContainer::set('global::language.pluralRules.csSelect', DependencyCont
 // Templating
 $loader_args = array(
     'publicDir' => WWW_ROOT_DIR,
-    'publicURL' => 'http'. (isset($_SERVER['SCHEME']) && $_SERVER['SCHEME']==='HTTPS' ? 's' : '').'://'.$_SERVER['HTTP_HOST'].'/',
+    'publicURL' => 'http'. (isset($_SERVER['SCHEME']) && $_SERVER['SCHEME']==='HTTPS' ? 's' : '').'://'.$_SERVER['HTTP_HOST'].(isset($_SERVER['REQUEST_ENDPOINT']) ? '/'.trim($_SERVER['REQUEST_ENDPOINT'], '/') : '').'/',
     'assets' => AtomicLoader_FilesystemLoader::getAssetDefaults()
 );
 

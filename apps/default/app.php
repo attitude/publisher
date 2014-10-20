@@ -45,17 +45,24 @@ if (!function_exists('is_https')) {
         if (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTPPS'])=== 'on') {
             return true;
         }
-    
+
         if (isset($_SERVER['SCHEME']) && strtolower($_SERVER['SCHEME'])==='https') {
             return true;
         }
-    
+
         if (isset($_SERVER['REQUEST_SCHEME']) && strtolower($_SERVER['REQUEST_SCHEME'])==='https') {
             return true;
         }
-    
+
         return false;
     }
+}
+
+// Endpoint
+$_SERVER['REQUEST_ENDPOINT'] = '/publisher';
+
+if (isset($_SERVER['REQUEST_ENDPOINT'])) {
+    $_SERVER['REQUEST_URI'] = preg_replace('|^/'.trim($_SERVER['REQUEST_ENDPOINT'], '/').'|', '', $_SERVER['REQUEST_URI']);
 }
 
 // On subdomain (sibling next to Publisher):
@@ -84,7 +91,7 @@ if (isset($as_static_subdomain) && $as_static_subdomain) {
             exit('You need to set the static domain as a&nbsp;string like <b>static</b> to build domain name like <b>static.'.$nowww_domain.'</b>.');
         }
 
-        define('ASSETS_URL', 'http'. (is_https() ? 's' : '').'://'.$as_static_subdomain.'.'.$nowww_domain.'/');
+        define('ASSETS_URL', 'http'. (is_https() ? 's' : '').'://'.$as_static_subdomain.'.'.$nowww_domain.(isset($_SERVER['REQUEST_ENDPOINT']) ? '/'.trim($_SERVER['REQUEST_ENDPOINT'], '/') : '').'/');
     } else {
         // Write note for developer to the log
         trigger_error('The static domain setup is available only for level 2 doamins, e.g. domain.com and www.domain.com. Please setup manually.');
@@ -95,7 +102,7 @@ if (isset($as_static_subdomain) && $as_static_subdomain) {
     define('ASSETS_ROOT_DIR', WWW_ROOT_DIR.'/assets');
 
     // Set URL for assets
-    define('ASSETS_URL', 'http'. (is_https() ? 's' : '').'://'.$_SERVER['HTTP_HOST'].'/assets');
+    define('ASSETS_URL', 'http'. (is_https() ? 's' : '').'://'.$_SERVER['HTTP_HOST'].(isset($_SERVER['REQUEST_ENDPOINT']) ? '/'.trim($_SERVER['REQUEST_ENDPOINT'], '/') : '').'/assets');
 }
 
 // Make sure assets directory exists
