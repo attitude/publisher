@@ -144,23 +144,23 @@ DependencyContainer::set('global::mustacheHelpers', array(
     'headtitle' => function($arr) {
         return implode(' / ', (array) $arr);
     },
-    'iscurrentclass' => function($b) {
-        return !!($b) ? 'class="is-current"' : '';
+    'iscurrentclass' => function($uri) {
+        return !!DependencyContainer::get('global::db')->linkHelperIsCurrent($uri) ? 'class="is-current"' : '';
     },
-    'iscurrent' => function($b) {
-        return !!($b) ? 'is-current ' : '';
+    'iscurrent' => function($uri) {
+        return !!DependencyContainer::get('global::db')->linkHelperIsCurrent($uri) ? 'is-current ' : '';
     },
-    'ishomeclass' => function($b) {
-        return !!($b) ? 'class="is-home"' : '';
+    'ishomeclass' => function($uri) {
+        return !!DependencyContainer::get('global::db')->linkHelperIsHome($uri) ? 'class="is-home"' : '';
     },
-    'ishome' => function($b) {
-        return !!($b) ? 'is-home ' : '';
+    'ishome' => function($uri) {
+        return !!DependencyContainer::get('global::db')->linkHelperIsHome($uri) ? 'is-home ' : '';
     },
-    'isactiveclass' => function($b) {
-        return !!($b) ? 'class="is-active"' : '';
+    'isactiveclass' => function($uri) {
+        return !!DependencyContainer::get('global::db')->linkHelperIsActive($uri) ? 'class="is-active"' : '';
     },
-    'isactive' => function($b) {
-        return !!($b) ? 'is-active ' : '';
+    'isactive' => function($uri) {
+        return !!DependencyContainer::get('global::db')->linkHelperIsActive($uri) ? 'is-active ' : '';
     }
 ));
 
