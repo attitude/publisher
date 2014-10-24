@@ -2,3 +2,5 @@ cache
 vendor
 .htaccess
 composer.lock
+apps/default/public/assets/css/combined
+apps/default/public/assets/js/combined

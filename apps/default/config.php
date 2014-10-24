@@ -169,6 +169,8 @@ $concatenation_args = $loader_args;
 $concatenation_args['publicStaticDir'] = ASSETS_ROOT_DIR;
 $concatenation_args['publicStaticURL'] = ASSETS_URL;
 
+define('ATOMIC_CONCAT_PREFIX', 'combined/');
+
 // Content filtering
 /* // Uncomment to use filter hook
 DependencyContainer::set('global::contentFilterHook', function($content) {
