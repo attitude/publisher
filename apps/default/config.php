@@ -148,19 +148,19 @@ DependencyContainer::set('global::mustacheHelpers', array(
         return !!DependencyContainer::get('global::db')->linkHelperIsCurrent($uri) ? 'class="is-current"' : '';
     },
     'iscurrent' => function($uri) {
-        return !!DependencyContainer::get('global::db')->linkHelperIsCurrent($uri) ? 'is-current ' : '';
+        return !!DependencyContainer::get('global::db')->linkHelperIsCurrent($uri) ? 'is-current' : '';
     },
     'ishomeclass' => function($uri) {
         return !!DependencyContainer::get('global::db')->linkHelperIsHome($uri) ? 'class="is-home"' : '';
     },
     'ishome' => function($uri) {
-        return !!DependencyContainer::get('global::db')->linkHelperIsHome($uri) ? 'is-home ' : '';
+        return !!DependencyContainer::get('global::db')->linkHelperIsHome($uri) ? 'is-home' : '';
     },
     'isactiveclass' => function($uri) {
         return !!DependencyContainer::get('global::db')->linkHelperIsActive($uri) ? 'class="is-active"' : '';
     },
     'isactive' => function($uri) {
-        return !!DependencyContainer::get('global::db')->linkHelperIsActive($uri) ? 'is-active ' : '';
+        return !!DependencyContainer::get('global::db')->linkHelperIsActive($uri) ? 'is-active' : '';
     }
 ));
 
