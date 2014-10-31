@@ -16,7 +16,7 @@ DependencyContainer::set('global::languageRegex', '/^(?:[a-z]{2}|[a-z]{2}_[A-Z]{
 
 // Content database
 // Yaml file source
-DependencyContainer::set('global::contentDBFile', APP_ROOT_DIR.'/db/content.yaml');
+DependencyContainer::set('global::contentDBFiles', APP_ROOT_DIR.'/db/content.yaml');
 // Set by what attribute to query DB
 DependencyContainer::set(
     'global::contentDBIndexes',
