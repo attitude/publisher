@@ -73,14 +73,19 @@ class Default_Engine
     {
         $this->microtime_start = microtime(true);
 
-        $this
-            ->boot()
-            ->setDatabase()
-            ->setDefaultLanguage()
-            ->setAvailableLanguages()
-            ->setRequestedLanguage()
-            ->setTranslationsService()
-            ->setRenderingEngine();
+        try {
+            $this
+                ->boot()
+                ->setDatabase()
+                ->setDefaultLanguage()
+                ->setAvailableLanguages()
+                ->setRequestedLanguage()
+                ->setTranslationsService()
+                ->setRenderingEngine();
+        } catch (HTTPException $e) {
+            echo $e->getMessage();
+            exit;
+        }
 
         return $this;
     }
@@ -161,8 +166,9 @@ class Default_Engine
     protected function setDatabase()
     {
         $this->db = new ContentDB_Element(
-            DependencyContainer::get('global::contentDBFile'),
+            DependencyContainer::get('global::contentDBFiles'),
             DependencyContainer::get('global::contentDBIndexes'),
+            DependencyContainer::get('global::contentDBRoot'),
             DependencyContainer::get('global::contentDBNocache')
         );
 
@@ -264,6 +270,7 @@ class Default_Engine
         $this->translations_service = new TranslationsDB_Element(
             DependencyContainer::get('global::translationsDBFile'),
             DependencyContainer::get('global::translationsDBIndexes'),
+            DependencyContainer::get('global::translationsDBRoot'),
             DependencyContainer::get('global::translationsDBNocache')
         );
 
