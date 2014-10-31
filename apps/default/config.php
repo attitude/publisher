@@ -24,6 +24,8 @@ DependencyContainer::set(
         'id',
         'collection',
         'type',
+        'created',
+        'updated',
         'code',
         'default',
         'name',
