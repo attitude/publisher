@@ -1,6 +1,6 @@
 ---
 id: website
-type: website
+type: websites
 title: Publisher
 languages:
     query(): {_type: language, published: true }
@@ -15,7 +15,7 @@ copyrightYear:
 #
 ################################################################################
 id: index
-type: collection
+type: collections
 route: /
 subtitle:
     sk_SK: Opäť ďalšia stránka
@@ -83,27 +83,4 @@ multilang:
 
             You can even rephrase English translations without changing actual template.
     tests: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1.25]
-...
----
-################################################################################
-#
-# LANGUAGES
-#
-################################################################################
-
-id: sk_SK
-type: language
-collection: languages
-name: Slovenčina
-code: sk
-published: true
-default: true
-...
----
-id: en_EN
-type: language
-collection: languages
-name: English
-code: en
-published: true
 ...

@@ -16,7 +16,11 @@ DependencyContainer::set('global::languageRegex', '/^(?:[a-z]{2}|[a-z]{2}_[A-Z]{
 
 // Content database
 // Yaml file source
-DependencyContainer::set('global::contentDBFiles', APP_ROOT_DIR.'/db/content.yaml');
+DependencyContainer::set('global::contentDBFiles', array(
+    APP_ROOT_DIR.'/db/content.yaml',
+    APP_ROOT_DIR.'/db/languages',
+));
+DependencyContainer::set('global::contentDBRoot', APP_ROOT_DIR.'/db');
 // Set by what attribute to query DB
 DependencyContainer::set(
     'global::contentDBIndexes',
@@ -41,6 +45,7 @@ DependencyContainer::set('global::contentDBNocache', true);
 
 // Translations database
 DependencyContainer::set('global::translationsDBFile', APP_ROOT_DIR.'/db/translations.yaml');
+DependencyContainer::set('global::translationsDBRoot', APP_ROOT_DIR.'/db');
 DependencyContainer::set('global::translationsDBIndexes', array());
 DependencyContainer::set('global::translationsDBNocache', true);
 

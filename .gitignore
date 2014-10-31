@@ -4,5 +4,4 @@ vendor
 composer.lock
 apps/default/public/assets/css/combined
 apps/default/public/assets/js/combined
-apps/default/db/.content@$indexes.json
-apps/default/db/.content@content.json
+.cache

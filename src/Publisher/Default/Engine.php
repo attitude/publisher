@@ -182,7 +182,7 @@ class Default_Engine
     {
         // Get default language
         try {
-            $default_language = $this->db->query(array('type' => 'language', 'default' => true));
+            $default_language = $this->db->query(array('type' => 'languages', 'default' => true));
             $this->default_language = $default_language[0];
         } catch(HTTPException $e) {
             $e->header();
@@ -198,8 +198,8 @@ class Default_Engine
     {
         // Get all languages
         $all_languages_args = $this->is_user_logged_in() ?
-            array('type'=>'language')
-          : array('type'=>'language', 'published' => true);
+            array('type'=>'languages')
+          : array('type'=>'languages', 'published' => true);
 
         try {
             $this->languages = $this->db->query($all_languages_args);
@@ -218,8 +218,8 @@ class Default_Engine
     {
         // Requested Language
         $language_exists_args = $this->is_user_logged_in() ?
-            array('type'=>'language', 'code' => $this->request_language, '_limit' => 1)
-          : array('type'=>'language', 'code' => $this->request_language, '_limit' => 1, 'published' => true);
+            array('type'=>'languages', 'code' => $this->request_language, '_limit' => 1)
+          : array('type'=>'languages', 'code' => $this->request_language, '_limit' => 1, 'published' => true);
 
         try {
             $this->language = $this->db->query($language_exists_args, true);
