@@ -28,7 +28,6 @@ class Default_Engine
      */
     protected $request;
 
-
     /**
      * @var string $requestURI Requested URI
      */
@@ -73,9 +72,24 @@ class Default_Engine
     {
         $this->microtime_start = microtime(true);
 
+        // Boot sequence and checks
+        DependencyContainer::set('global::boot', Boot_Element::instance());
+
+        // REQUEST_URI_ARRAY is created by Boot_Element, therefore must preceed
+        $request = new Request_Element(
+            $_SERVER['REQUEST_METHOD'],
+            $_SERVER['REQUEST_URI_ARRAY'],
+            (isset($_SERVER['argv']) ? $_SERVER['argv'] : array()),
+            $_SERVER['HTTP_ACCEPT'],
+            $GLOBALS['_'.$_SERVER['REQUEST_METHOD']]
+        );
+
+        // Make it available
+        DependencyContainer::set('global::request', $this->request);
+
         try {
             $this
-                ->boot()
+                ->boot($request)
                 ->setDatabase()
                 ->setDefaultLanguage()
                 ->setAvailableLanguages()
@@ -86,6 +100,18 @@ class Default_Engine
             echo $e->getMessage();
             exit;
         }
+
+        return $this;
+    }
+
+    protected function boot(Request_Element $request)
+    {
+        $this->request = $request;
+
+        // Explode the request URI for LANGUAGE
+        $requestURI = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
+        $this->request_language = array_shift($requestURI);
+        $this->requestURI = '/'.implode('/', $requestURI);
 
         return $this;
     }
@@ -134,31 +160,6 @@ class Default_Engine
 
         // Update translation database with new strings
         $this->translations_service->updateDictionary();
-
-        return $this;
-    }
-
-    protected function boot()
-    {
-        // Boot sequence and checks
-        DependencyContainer::set('global::boot', Boot_Element::instance());
-
-        // REQUEST_URI_ARRAY is created by Boot_Element, therefore must preceed
-        $this->request = new Request_Element(
-            $_SERVER['REQUEST_METHOD'],
-            $_SERVER['REQUEST_URI_ARRAY'],
-            (isset($_SERVER['argv']) ? $_SERVER['argv'] : array()),
-            $_SERVER['HTTP_ACCEPT'],
-            $GLOBALS['_'.$_SERVER['REQUEST_METHOD']]
-        );
-
-        // Make it available
-        DependencyContainer::set('global::request', $this->request);
-
-        // Explode the request URI for LANGUAGE
-        $requestURI = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
-        $this->request_language = array_shift($requestURI);
-        $this->requestURI = '/'.implode('/', $requestURI);
 
         return $this;
     }
