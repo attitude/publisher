@@ -11,6 +11,9 @@ use \attitude\Mustache\DataPreprocessor_Component;
 use \attitude\Mustache\AtomicLoader_FilesystemLoader;
 use \attitude\Mustache\AtomicLoader_AssetsConcatenator;
 
+// Boot sequence and checks
+DependencyContainer::set('global::boot', Boot_Element::instance());
+
 // Identify language attributes for data translations
 DependencyContainer::set('global::languageRegex', '/^(?:[a-z]{2}|[a-z]{2}_[A-Z]{2})$/');
 
@@ -186,3 +189,16 @@ DependencyContainer::set('global::contentFilterHook', function($content) {
 */
 
 DependencyContainer::set('global::assetsConcantenator', new AtomicLoader_AssetsConcatenator(WWW_ROOT_DIR, $concatenation_args));
+
+// REQUEST_URI_ARRAY is created by Boot_Element, therefore must preceed
+DependencyContainer::set('global::request', new Request_Element(
+    $_SERVER['REQUEST_METHOD'],
+    $_SERVER['REQUEST_URI_ARRAY'],
+    (isset($_SERVER['argv']) ? $_SERVER['argv'] : array()),
+    $_SERVER['HTTP_ACCEPT'],
+    $GLOBALS['_'.$_SERVER['REQUEST_METHOD']]
+));
+
+// Create a server
+$server = new \Publisher\Default_Engine(DependencyContainer::get('global::request'));
+DependencyContainer::set('global::server', $server);

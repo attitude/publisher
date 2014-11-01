@@ -119,6 +119,5 @@ define('MICROTIMEBENCHMARK', false);
 // Configure
 require_once APP_ROOT_DIR.'/config.php';
 
-// Serve request
-$publisher = new \Publisher\Default_Engine();
-$publisher->serve();
+// Server request
+$server->serve();

@@ -68,24 +68,18 @@ class Default_Engine
      */
     protected $html_engine;
 
-    public function __construct()
+    public function __construct(Request_Element $request)
     {
         $this->microtime_start = microtime(true);
 
-        // Boot sequence and checks
-        DependencyContainer::set('global::boot', Boot_Element::instance());
+        if (!defined('BOOT_HAS_PASSED') || !(defined('BOOT_HAS_PASSED') && BOOT_HAS_PASSED)) {
+            // Boot sequence and checks
+            DependencyContainer::set('global::boot', Boot_Element::instance());
 
-        // REQUEST_URI_ARRAY is created by Boot_Element, therefore must preceed
-        $request = new Request_Element(
-            $_SERVER['REQUEST_METHOD'],
-            $_SERVER['REQUEST_URI_ARRAY'],
-            (isset($_SERVER['argv']) ? $_SERVER['argv'] : array()),
-            $_SERVER['HTTP_ACCEPT'],
-            $GLOBALS['_'.$_SERVER['REQUEST_METHOD']]
-        );
+            exit;
+        }
 
-        // Make it available
-        DependencyContainer::set('global::request', $this->request);
+        $this->request = $request;
 
         try {
             $this
