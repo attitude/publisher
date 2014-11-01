@@ -7,6 +7,7 @@ use \attitude\Elements\DependencyContainer;
 use \attitude\Elements\Boot_Element;
 use \attitude\Elements\Request_Element;
 
+use \attitude\FlatYAMLDB_Element;
 use \attitude\FlatYAMLDB\ContentDB_Element;
 use \attitude\FlatYAMLDB\TranslationsDB_Element;
 use \attitude\Mustache\DataPreprocessor_Component;
@@ -22,6 +23,11 @@ class Default_Engine
      * @var object $db Database
      */
     protected $db;
+
+    /**
+     * @var object $schema Schema database
+     */
+    protected $schema;
 
     /**
      * @var object $request Request
@@ -112,6 +118,12 @@ class Default_Engine
 
     public function serve()
     {
+        $method = $this->request->getRequestMethod();
+
+        if ($method !== 'GET') {
+            $this->setSchemaDatabase();
+        }
+
         // Collection lookup
         try {
             $collection = $this->db->getCollection($this->requestURI);
@@ -166,6 +178,29 @@ class Default_Engine
             DependencyContainer::get('global::contentDBRoot'),
             DependencyContainer::get('global::contentDBNocache')
         );
+
+        // Set db
+        DependencyContainer::set('global::db', $this->db);
+
+        return $this;
+    }
+
+    protected function setSchemaDatabase()
+    {
+        try {
+            $this->schema = new FlatYAMLDB_Element(
+                DependencyContainer::get('global::schemaDBFiles'),
+                DependencyContainer::get('global::schemaDBIndexes'),
+                DependencyContainer::get('global::schemaDBRoot'),
+                DependencyContainer::get('global::schemaDBNocache')
+            );
+        } catch (HTTPException $e) {
+            // Method Not Allowed
+            $e = new HTTPException(405);
+            $e->header();
+
+            exit('Server does not support current method.');
+        }
 
         // Set db
         DependencyContainer::set('global::db', $this->db);
