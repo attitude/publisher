@@ -114,7 +114,7 @@ class Default_Engine
     {
         // Collection lookup
         try {
-            $collection = DependencyContainer::get('global::db')->getCollection($this->requestURI);
+            $collection = $this->db->getCollection($this->requestURI);
 
             // Push current language info to the data
             $collection['meta']['language'] = $this->language;
