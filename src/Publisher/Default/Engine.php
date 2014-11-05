@@ -345,7 +345,9 @@ class Default_Engine
     {
         static $prefered_language = false;
 
-        if ($prefered_language===false) {
+        if ($prefered_language === false) {
+            // Don not run again
+            $prefered_language = null;
 
             // User prefers language
             if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) && !empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
@@ -362,8 +364,6 @@ class Default_Engine
                 }
 
                 krsort($prefered_languages);
-
-                $prefered_language = null;
 
                 // Look for matches
                 foreach ($prefered_languages as $prefered_language_code) {
