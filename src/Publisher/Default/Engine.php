@@ -189,12 +189,14 @@ class Default_Engine
     {
         try {
             $this->schema = new FlatYAMLDB_Element(
-                DependencyContainer::get('global::schemaDBFiles'),
-                DependencyContainer::get('global::schemaDBIndexes'),
+                DependencyContainer::get('global::schemaDBFile'),
+                DependencyContainer::get('global::schemaDBIndexes', array()),
                 DependencyContainer::get('global::schemaDBRoot'),
                 DependencyContainer::get('global::schemaDBNocache')
             );
         } catch (HTTPException $e) {
+            trigger_error($e->getMessage());
+
             // Method Not Allowed
             $e = new HTTPException(405);
             $e->header();
