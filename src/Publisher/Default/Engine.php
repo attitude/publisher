@@ -20,9 +20,9 @@ use \attitude\Mustache\AtomicLoader_AssetsConcatenator;
 class Default_Engine
 {
     /**
-     * @var object $db Database
+     * @var object $db Database of resources
      */
-    protected $db;
+    protected $resources;
 
     /**
      * @var object $schema Schema database
@@ -126,7 +126,7 @@ class Default_Engine
 
         // Collection lookup
         try {
-            $collection = $this->db->getCollection($this->requestURI);
+            $collection = $this->resources->getCollection($this->requestURI);
 
             // Push current language info to the data
             $collection['meta']['language'] = $this->language;
@@ -172,7 +172,7 @@ class Default_Engine
 
     protected function setDatabase()
     {
-        $this->db = new ContentDB_Element(
+        $this->resources = new ContentDB_Element(
             DependencyContainer::get('global::contentDBFiles'),
             DependencyContainer::get('global::contentDBIndexes'),
             DependencyContainer::get('global::contentDBRoot'),
@@ -180,7 +180,7 @@ class Default_Engine
         );
 
         // Set db
-        DependencyContainer::set('global::db', $this->db);
+        DependencyContainer::set('global::db', $this->resources);
 
         return $this;
     }
@@ -203,7 +203,7 @@ class Default_Engine
         }
 
         // Set db
-        DependencyContainer::set('global::db', $this->db);
+        DependencyContainer::set('global::db', $this->resources);
 
         return $this;
     }
@@ -212,7 +212,7 @@ class Default_Engine
     {
         // Get default language
         try {
-            $default_language = $this->db->query(array('type' => 'languages', 'default' => true));
+            $default_language = $this->resources->query(array('type' => 'languages', 'default' => true));
             $this->default_language = $default_language[0];
         } catch(HTTPException $e) {
             $e->header();
@@ -232,7 +232,7 @@ class Default_Engine
           : array('type'=>'languages', 'published' => true);
 
         try {
-            $this->languages = $this->db->query($all_languages_args);
+            $this->languages = $this->resources->query($all_languages_args);
             DependencyContainer::set('global::languages', $this->languages);
         } catch(HTTPException $e) {
             $e->header();
@@ -252,7 +252,7 @@ class Default_Engine
           : array('type'=>'languages', 'code' => $this->request_language, '_limit' => 1, 'published' => true);
 
         try {
-            $this->language = $this->db->query($language_exists_args, true);
+            $this->language = $this->resources->query($language_exists_args, true);
 
             DependencyContainer::set('global::language', $this->language);
             DependencyContainer::set('global::language.locale', $this->language['id']);
